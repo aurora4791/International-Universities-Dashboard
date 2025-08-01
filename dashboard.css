@@ -1,0 +1,31 @@
+body {
+  background: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb);
+  font-family: Arial, sans-serif;
+}
+.dashboard-header {
+  background: #17607d;
+  color: #fff;
+  padding: 2em 1em 1em 1em;
+  text-align: center;
+  font-size: 1.7em;
+  border-radius: 0 0 1.5em 1.5em;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5em;
+  margin: 2em 7%;
+}
+.university-card {
+  background: #fff;
+  border-radius: 1.4em;
+  box-shadow: 0 1px 10px #0002;
+  padding: 1em;
+}
+.emoji { font-size: 2em; }
+.social-icon { color: #1fa2ff; margin: 0 0.3em; font-size: 1.2em; }
+.badge { background: #e6f6d2; color: #387e0a; margin: 0 0.3em; border-radius: 12px; padding: 0.22em 0.5em; }
+.website-btn { display: inline-block; margin-top: 0.5em; padding: 0.3em 0.9em; background: #1fa2ff; color: #fff; border-radius: 1em; text-decoration: none; }
+.card-body { display: none; }
+.university-card.expanded .card-body { display: block; }
+.expand-btn { margin-left: auto; background: none; border: none; font-size: 1.3em; color: #aaa; cursor: pointer; }

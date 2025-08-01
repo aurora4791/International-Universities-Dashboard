@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Universities Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1>🌎 International Universities Dashboard</h1>
+  </header>
+  <main class="card-grid" id="university-list">
+    <!-- One sample card -->
+    <div class="university-card" data-region="Africa" data-degree="entrepreneurship">
+      <div class="card-header">
+        <span class="emoji">🌍</span>
+        <h2>University of Ghana</h2>
+        <span class="city-country">Accra, Ghana</span>
+        <button class="expand-btn"><i class="fas fa-chevron-down"></i></button>
+      </div>
+      <div class="card-body">
+        <p><strong>Degree:</strong> Entrepreneurship</p>
+        <p><strong>Tuition:</strong> $2,500/year</p>
+        <p><strong>On Campus Housing:</strong> ✔️</p>
+        <p><strong>Things to Do:</strong> Markets, festivals, art tours</p>
+        <div class="badges">
+          <span class="badge welcoming">Welcoming</span>
+          <span class="badge affordable">Affordable</span>
+        </div>
+        <a href="https://www.ug.edu.gh/" class="website-btn" target="_blank">Visit Website</a>
+        <span class="social-icons">
+          <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook"></i></a>
+        </span>
+      </div>
+    </div>
+    <!-- Add more cards here -->
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>
