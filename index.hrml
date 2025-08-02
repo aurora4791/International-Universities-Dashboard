@@ -1,41 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Universities Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Universities for AI & Entrepreneurship</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header class="dashboard-header">
-    <h1>🌎 International Universities Dashboard</h1>
-  </header>
-  <main class="card-grid" id="university-list">
-    <!-- One sample card -->
-    <div class="university-card" data-region="Africa" data-degree="entrepreneurship">
-      <div class="card-header">
-        <span class="emoji">🌍</span>
-        <h2>University of Ghana</h2>
-        <span class="city-country">Accra, Ghana</span>
-        <button class="expand-btn"><i class="fas fa-chevron-down"></i></button>
-      </div>
-      <div class="card-body">
-        <p><strong>Degree:</strong> Entrepreneurship</p>
-        <p><strong>Tuition:</strong> $2,500/year</p>
-        <p><strong>On Campus Housing:</strong> ✔️</p>
-        <p><strong>Things to Do:</strong> Markets, festivals, art tours</p>
-        <div class="badges">
-          <span class="badge welcoming">Welcoming</span>
-          <span class="badge affordable">Affordable</span>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1>International Universities for AI & Entrepreneurship</h1>
+                <p class="subtitle">Designed specifically for African American students seeking global opportunities</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container">
+                <div class="dashboard-layout">
+                    <!-- Sidebar Filters -->
+                    <aside class="sidebar">
+                        <div class="filters-section">
+                            <h3>Filters</h3>
+                            
+                            <!-- Search -->
+                            <div class="filter-group">
+                                <label class="form-label">Search Universities</label>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search by university or country...">
+                            </div>
+
+                            <!-- Region Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Region</label>
+                                <select id="regionFilter" class="form-control">
+                                    <option value="">All Regions</option>
+                                    <option value="Africa">Africa</option>
+                                    <option value="Europe">Europe</option>
+                                    <option value="Asia">Asia</option>
+                                    <option value="North America">North America</option>
+                                    <option value="South America">South America</option>
+                                    <option value="Oceania">Oceania</option>
+                                </select>
+                            </div>
+
+                            <!-- Country Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Country</label>
+                                <select id="countryFilter" class="form-control">
+                                    <option value="">All Countries</option>
+                                </select>
+                            </div>
+
+                            <!-- Degree Type Filter -->
+                            <div class="filter-group">
+                                <label class="form-label">Degree Focus</label>
+                                <select id="degreeFilter" class="form-control">
+                                    <option value="">All Programs</option>
+                                    <option value="AI">AI & Machine Learning</option>
+                                    <option value="Entrepreneurship">Entrepreneurship</option>
+                                    <option value="Combined">Combined Programs</option>
+                                </select>
+                            </div>
+
+                            <!-- Tuition Range -->
+                            <div class="filter-group">
+                                <label class="form-label">Tuition Range (USD)</label>
+                                <div class="range-container">
+                                    <input type="range" id="tuitionRange" class="range-slider" min="0" max="60000" value="60000" step="1000">
+                                    <div class="range-values">
+                                        <span>$0</span>
+                                        <span id="tuitionValue">$60,000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sort Options -->
+                            <div class="filter-group">
+                                <label class="form-label">Sort By</label>
+                                <select id="sortFilter" class="form-control">
+                                    <option value="alphabetical">Alphabetical</option>
+                                    <option value="tuition-low">Tuition (Low to High)</option>
+                                    <option value="tuition-high">Tuition (High to Low)</option>
+                                    <option value="country">Country</option>
+                                </select>
+                            </div>
+
+                            <button id="resetFilters" class="btn btn--secondary btn--full-width">Reset Filters</button>
+                        </div>
+
+                        <!-- Statistics Panel -->
+                        <div class="stats-panel">
+                            <h3>Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="totalUniversities">60</span>
+                                    <span class="stat-label">Universities</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="avgTuition">$18,500</span>
+                                    <span class="stat-label">Avg. Tuition</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="totalCountries">30</span>
+                                    <span class="stat-label">Countries</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Chart Container -->
+                            <div class="chart-container" style="position: relative; height: 200px;">
+                                <canvas id="regionChart"></canvas>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <main class="content-area">
+                        <div class="content-header">
+                            <div class="results-info">
+                                <span id="resultsCount">Showing 60 universities</span>
+                            </div>
+                        </div>
+
+                        <!-- University Cards Grid -->
+                        <div id="universitiesGrid" class="universities-grid">
+                            <!-- University cards will be dynamically inserted here -->
+                        </div>
+
+                        <!-- No Results Message -->
+                        <div id="noResults" class="no-results hidden">
+                            <h3>No universities found</h3>
+                            <p>Try adjusting your filters to see more results.</p>
+                        </div>
+                    </main>
+                </div>
+            </div>
         </div>
-        <a href="https://www.ug.edu.gh/" class="website-btn" target="_blank">Visit Website</a>
-        <span class="social-icons">
-          <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook"></i></a>
-        </span>
-      </div>
+
+        <!-- Modal for Expanded Details -->
+        <div id="universityModal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle"></h2>
+                    <button id="closeModal" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <section class="tips-section">
+            <div class="container">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Quick Facts: Studying Abroad as an African American Student</h3>
+                        <div class="tips-grid">
+                            <div class="tip-item">
+                                <h4>Cultural Integration</h4>
+                                <p>Many universities have strong international student support systems and African diaspora communities.</p>
+                            </div>
+                            <div class="tip-item">
+                                <h4>Business Opportunities</h4>
+                                <p>Several countries offer entrepreneur visas and startup support programs for international students.</p>
+                            </div>
+                            <div class="tip-item">
+                                <h4>Safety & Support</h4>
+                                <p>Consider countries with established international communities and strong rule of law.</p>
+                            </div>
+                            <div class="tip-item">
+                                <h4>Financial Planning</h4>
+                                <p>Factor in tuition, housing, living costs, and potential scholarship opportunities.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <!-- Add more cards here -->
-  </main>
-  <script src="dashboard.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>
